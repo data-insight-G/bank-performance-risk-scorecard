@@ -5,13 +5,18 @@ CREATE TABLE fdic_load_batch (
     system_version VARCHAR2(20) DEFAULT '1.0.0' NOT NULL,
     source_url VARCHAR2(1000) NOT NULL,
     source_filter VARCHAR2(500) NOT NULL,
+    source_transport VARCHAR2(30) NOT NULL,
+    source_api_index VARCHAR2(200),
     extraction_timestamp_utc TIMESTAMP WITH TIME ZONE NOT NULL,
-    source_sha256 VARCHAR2(64) NOT NULL,
+    source_fingerprint_sha256 VARCHAR2(64) NOT NULL,
     expected_row_count NUMBER NOT NULL,
     actual_row_count NUMBER,
     load_status VARCHAR2(20) DEFAULT 'STAGED' NOT NULL,
     created_at_utc TIMESTAMP WITH TIME ZONE DEFAULT SYS_EXTRACT_UTC(SYSTIMESTAMP) NOT NULL,
-    CONSTRAINT uq_fdic_load_batch_sha UNIQUE (source_sha256),
+    CONSTRAINT uq_fdic_load_fingerprint UNIQUE (source_fingerprint_sha256),
+    CONSTRAINT ck_fdic_source_transport CHECK (
+        source_transport IN ('ORACLE_UTL_HTTP', 'EXTERNAL_CSV')
+    ),
     CONSTRAINT ck_fdic_load_batch_status CHECK (
         load_status IN ('STAGED', 'VALIDATED', 'REJECTED', 'PROMOTED', 'FAILED')
     )

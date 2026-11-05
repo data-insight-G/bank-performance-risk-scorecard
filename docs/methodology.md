@@ -6,7 +6,7 @@ One row represents one FDIC certificate at one quarter end. The project keeps an
 
 ## Validation contract
 
-Excel Power Query first requires the API row count, the 20 expected quarter ends, and unique `CERT`/`REPDTE` keys. Oracle then validates required fields and numeric measures before batch promotion. Missing `NETINC` and `ROE` values are permitted because they occur in the official extract; affected calculations exclude those rows and disclose coverage.
+The PL/SQL ingestion package first requires the approved API row count and a new metadata fingerprint. Oracle SQL then validates the 20 expected quarter ends, unique `CERT`/`REPDTE` keys, required fields, and numeric measures before batch promotion. Missing `NETINC` and `ROE` values are permitted because they occur in the official extract; affected calculations exclude those rows and disclose coverage.
 
 ## Peer design
 
@@ -29,4 +29,4 @@ The Oracle outlier query identifies institutions below the 10th percentile for R
 
 ## Reproducibility
 
-The source manifest freezes API parameters, timestamp, row count, index version, and file hash. The Excel Power Query contains the complete paginated extraction and validation logic. The raw extract is not committed; two small expected outputs are committed so README findings and Oracle reconciliation targets can be reviewed without downloading 25 MB.
+The source manifest freezes API parameters, timestamp, row count, index version, a reference CSV hash, and the Oracle API metadata fingerprint. `FDIC_API_INGESTION_PKG` contains the complete paginated extraction and staging logic. The raw extract is not committed; two small expected outputs are committed so README findings and Oracle reconciliation targets can be reviewed without downloading 25 MB.

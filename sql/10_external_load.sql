@@ -54,12 +54,14 @@ BEGIN
     INSERT INTO fdic_load_batch (
         source_url,
         source_filter,
+        source_transport,
         extraction_timestamp_utc,
-        source_sha256,
+        source_fingerprint_sha256,
         expected_row_count
     ) VALUES (
         'https://api.fdic.gov/banks/financials',
         'REPDTE:[20200331 TO 20241231]',
+        'EXTERNAL_CSV',
         TO_TIMESTAMP_TZ('2026-11-05T15:45:28.122973+00:00', 'YYYY-MM-DD"T"HH24:MI:SS.FFTZH:TZM'),
         'a2955fdd52818cfebc029772d95b7dadaa5d555e2561b8fcc0461677c5069fd4',
         96902

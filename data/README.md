@@ -18,12 +18,16 @@ The FDIC describes BankFind as publicly available bank data. This repository att
 - `source_manifest.json`: immutable extraction metadata, fields, count, date boundaries, API index, and hash.
 - `processed/industry_quarter_summary.csv`: 20 rows of verified quarterly totals and medians.
 - `processed/latest_peer_summary.csv`: verified 2024 Q4 medians for four asset-size bands.
-- `raw/`: excluded from Git. Recreate the 25 MB CSV with the Excel Power Query extraction.
+- `raw/`: excluded from Git. The primary workflow loads the API directly into Oracle and does not require a CSV.
 
-## Reproduce the raw extract
+## Load the approved snapshot
 
-Use `excel/fdic_financials_power_query.pq` in Excel Power Query and follow `excel/README.md`. The query pages through the FDIC API, enforces the expected row count and quarter set, rejects duplicate institution-quarter keys, and returns the 29 project fields.
+1. Configure the Oracle network ACL and HTTPS wallet as described in `docs/oracle_network_setup.md`.
+2. Run `sql/00_schema.sql`, `sql/01_reference_data.sql`, and `sql/02_data_quality.sql`.
+3. Compile `plsql/fdic_load_control_pkg.sql`, followed by `plsql/fdic_api_ingestion_pkg.sql`.
+4. Run `sql/11_run_api_refresh.sql` and provide the wallet path and password when prompted.
+5. Run the analytical views, analysis queries, and reconciliation script.
 
-Export the validated Excel table as `fdic_financials_2020q1_2024q4.csv`, place it in the Oracle server directory represented by `FDIC_DATA_DIR`, and run `sql/10_external_load.sql`. Oracle performs the authoritative staging validation and analytical calculations.
+The package fails if the API metadata no longer reports 96,902 rows, if the same source fingerprint was already loaded, or if Oracle validation finds data-quality issues. `sql/10_external_load.sql` remains an optional Oracle external-table fallback for environments where outbound database network access is prohibited.
 
 Because the API can be revised, a later extraction may have a different row count or hash. Do not overwrite the documented historical manifest without reviewing and explaining the change.

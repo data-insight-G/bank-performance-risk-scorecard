@@ -17,9 +17,9 @@
 
 No bidirectional relationships are required. Hide technical keys and additive raw ratio columns from report authors. Use the documented measures rather than summing percentages.
 
-## Power Query responsibilities
+## Power BI data-preparation responsibilities
 
-Power Query should only set types and rename presentation labels. Financial logic, date scope, peer definitions, quarterly net-income conversion, and data validation remain in Oracle so there is one source of truth.
+Power BI should only set presentation types and labels. Financial logic, date scope, peer definitions, quarterly net-income conversion, and data validation remain in Oracle so there is one source of truth.
 
 ## Page design
 

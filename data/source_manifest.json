@@ -39,10 +39,11 @@
   "record_count": 96902,
   "minimum_report_date": "20200331",
   "maximum_report_date": "20241231",
-  "sha256": "a2955fdd52818cfebc029772d95b7dadaa5d555e2561b8fcc0461677c5069fd4",
+  "reference_csv_sha256": "a2955fdd52818cfebc029772d95b7dadaa5d555e2561b8fcc0461677c5069fd4",
+  "oracle_api_fingerprint_sha256": "35051CE6910296D5DF97BEA919906F9AE9AE5B9AC430FC7B1DA994CC38082AF4",
   "api_index": {
     "name": "risview_20260819185831",
     "createTimestamp": "2026-08-19T18:58:33Z"
   },
-  "redistribution": "Raw extract is not committed; reproduce it with excel/fdic_financials_power_query.pq."
+  "redistribution": "Raw extract is not committed; ingest the approved snapshot directly with plsql/fdic_api_ingestion_pkg.sql."
 }
