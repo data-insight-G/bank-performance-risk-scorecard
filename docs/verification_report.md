@@ -8,8 +8,8 @@
 | Oracle PL/SQL | Not tested | Package reviewed statically; compilation and execution require Oracle |
 | Power BI | Not tested | Model, DAX, page design, and reconciliation plan supplied; Power BI Desktop unavailable |
 | README | Pass | Seven required sections in the required order; numeric claims reconcile to committed CSVs |
-| GitHub repository | Pending | To be updated after remote creation and push |
+| GitHub repository | Pass | Public repository created at `https://github.com/data-insight-G/bank-performance-risk-scorecard`; main branch contains two logical commits |
 | GitHub profile | Not changed | Existing private repositories preserved; no profile README existed |
-| Public links | Pending | To be tested after repository publication |
+| Public links | Pass | Repository, raw README, dashboard image, and FDIC documentation opened without an authenticated GitHub session |
 
 “Not tested” is deliberate: files are not marked passed when the required runtime was unavailable.
