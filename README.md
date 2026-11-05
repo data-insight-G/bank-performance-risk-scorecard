@@ -1,5 +1,3 @@
-## Title
-
 # Bank Performance and Risk Early-Warning Scorecard
 
 ![Dashboard preview](visuals/dashboard-overview.png)

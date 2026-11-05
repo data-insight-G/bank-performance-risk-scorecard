@@ -7,7 +7,7 @@
 | Oracle SQL | Seven tables, three views, four asset bands, and 20 quarters created on Oracle 21c XE |
 | PL/SQL | Both package specifications and bodies compiled with zero errors and zero invalid objects |
 | Power BI | Model, 19 DAX measures, page design, and reconciliation plan reviewed statically |
-| README | Seven clear sections; headline figures reconcile to committed outputs |
+| README | Required portfolio content included; headline figures reconcile to committed outputs |
 | GitHub | Public repository and linked files verified after publication |
 
 The live API refresh requires an Oracle wallet and network ACL. Native Power BI rendering remains pending because Power BI Desktop was unavailable.
