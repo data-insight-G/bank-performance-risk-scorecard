@@ -1,0 +1,88 @@
+-- Table names follow powerbi/model.md.
+
+Institution Count =
+DISTINCTCOUNT('Bank Quarter Metrics'[cert])
+
+Total Assets USD B =
+DIVIDE(SUM('Bank Quarter Metrics'[total_assets_thousands]), 1000000)
+
+Total Deposits USD B =
+DIVIDE(SUM('Bank Quarter Metrics'[total_deposits_thousands]), 1000000)
+
+Total Net Loans USD B =
+DIVIDE(SUM('Bank Quarter Metrics'[net_loans_thousands]), 1000000)
+
+Quarter Net Income USD B =
+DIVIDE(SUM('Bank Quarter Metrics'[quarter_net_income_thousands]), 1000000)
+
+Quarter Net Income Coverage % =
+DIVIDE(
+    COUNT('Bank Quarter Metrics'[quarter_net_income_thousands]),
+    COUNTROWS('Bank Quarter Metrics')
+)
+
+Median ROA % =
+MEDIAN('Bank Quarter Metrics'[roa_pct])
+
+Median ROE % =
+MEDIAN('Bank Quarter Metrics'[roe_pct])
+
+Median NIM % =
+MEDIAN('Bank Quarter Metrics'[net_interest_margin_pct])
+
+Median Equity to Assets % =
+MEDIAN('Bank Quarter Metrics'[equity_to_assets_pct])
+
+Median Loans to Deposits % =
+MEDIAN('Bank Quarter Metrics'[loans_to_deposits_pct])
+
+Median Noncurrent Loans % =
+MEDIAN('Bank Quarter Metrics'[noncurrent_loans_pct])
+
+Median Net Charge-Offs % =
+MEDIAN('Bank Quarter Metrics'[net_charge_offs_pct])
+
+ROA QoQ Change pp =
+VAR CurrentReportDate = MAX('Reporting Date'[report_date])
+VAR PriorReportDate = EDATE(CurrentReportDate, -3)
+VAR PriorROA =
+    CALCULATE(
+        [Median ROA %],
+        REMOVEFILTERS('Reporting Date'),
+        'Reporting Date'[report_date] = PriorReportDate
+    )
+RETURN
+    [Median ROA %] - PriorROA
+
+ROA YoY Change pp =
+VAR CurrentReportDate = MAX('Reporting Date'[report_date])
+VAR PriorReportDate = EDATE(CurrentReportDate, -12)
+VAR PriorROA =
+    CALCULATE(
+        [Median ROA %],
+        REMOVEFILTERS('Reporting Date'),
+        'Reporting Date'[report_date] = PriorReportDate
+    )
+RETURN
+    [Median ROA %] - PriorROA
+
+Loans to Deposits QoQ Change pp =
+VAR CurrentReportDate = MAX('Reporting Date'[report_date])
+VAR PriorReportDate = EDATE(CurrentReportDate, -3)
+VAR PriorLoansToDeposits =
+    CALCULATE(
+        [Median Loans to Deposits %],
+        REMOVEFILTERS('Reporting Date'),
+        'Reporting Date'[report_date] = PriorReportDate
+    )
+RETURN
+    [Median Loans to Deposits %] - PriorLoansToDeposits
+
+Selected Institution ROA Peer Percentile =
+MAX('Bank Quarter Metrics'[roa_peer_percentile])
+
+Selected Institution Noncurrent Peer Percentile =
+MAX('Bank Quarter Metrics'[noncurrent_loans_peer_percentile])
+
+Latest Report Date =
+MAX('Bank Quarter Metrics'[report_date])

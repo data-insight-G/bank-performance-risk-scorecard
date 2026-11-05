@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-labelledby="title description">
+<title id="title">Bank Performance and Risk Early-Warning Scorecard preview</title>
+<desc id="description">Verified 2024 fourth-quarter FDIC metrics, a twenty-quarter profitability and margin trend, and noncurrent-loan medians by bank asset-size peer group.</desc>
+<rect width="1440" height="900" fill="#FFFFFF"/>
+<text x="64.0" y="70.0" font-family="Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#12263A">Bank Performance &amp; Risk Early-Warning Scorecard</text>
+<text x="64.0" y="101.0" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="400" fill="#526473">FDIC BankFind • 2020 Q1–2024 Q4 • latest quarter shown</text>
+<text x="1190.0" y="72.0" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#007C83">2024 Q4</text>
+<rect x="64" y="135" width="232" height="112" rx="8" fill="#F3F6F7"/>
+<text x="82.0" y="173.0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#526473">Institutions</text>
+<text x="82.0" y="222.0" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="700" fill="#12263A">4,560</text>
+<rect x="324" y="135" width="232" height="112" rx="8" fill="#F3F6F7"/>
+<text x="342.0" y="173.0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#526473">Median ROA</text>
+<text x="342.0" y="222.0" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="700" fill="#007C83">0.94%</text>
+<rect x="584" y="135" width="232" height="112" rx="8" fill="#F3F6F7"/>
+<text x="602.0" y="173.0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#526473">Median NIM</text>
+<text x="602.0" y="222.0" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="700" fill="#007C83">3.43%</text>
+<rect x="844" y="135" width="232" height="112" rx="8" fill="#F3F6F7"/>
+<text x="862.0" y="173.0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#526473">Loans / deposits</text>
+<text x="862.0" y="222.0" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="700" fill="#A86F00">78.61%</text>
+<rect x="1104" y="135" width="232" height="112" rx="8" fill="#F3F6F7"/>
+<text x="1122.0" y="173.0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="600" fill="#526473">Noncurrent loans</text>
+<text x="1122.0" y="222.0" font-family="Segoe UI, Arial, sans-serif" font-size="29" font-weight="700" fill="#C94B50">0.335%</text>
+<text x="64.0" y="306.0" font-family="Segoe UI, Arial, sans-serif" font-size="22" font-weight="700" fill="#12263A">Profitability recovered in 2024, while funding and credit pressure remained visible</text>
+<text x="64.0" y="337.0" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="400" fill="#526473">Median metrics; peer and institution drill-down are required before action.</text>
+<rect x="64" y="370" width="820" height="360" rx="8" fill="#FFFFFF" stroke="#D9E1E5"/>
+<text x="88.0" y="410.0" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#12263A">Twenty-quarter median trend</text>
+<text x="88.0" y="436.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="400" fill="#526473">ROA and net interest margin (%)</text>
+<line x1="112" y1="475.0" x2="847" y2="475.0" stroke="#D9E1E5"/>
+<line x1="112" y1="522.5" x2="847" y2="522.5" stroke="#D9E1E5"/>
+<line x1="112" y1="570.0" x2="847" y2="570.0" stroke="#D9E1E5"/>
+<line x1="112" y1="617.5" x2="847" y2="617.5" stroke="#D9E1E5"/>
+<line x1="112" y1="665.0" x2="847" y2="665.0" stroke="#D9E1E5"/>
+<polyline points="112.0,621.2 150.7,618.6 189.4,618.0 228.1,618.3 266.7,611.7 305.4,610.9 344.1,610.6 382.8,613.3 421.5,623.5 460.2,620.4 498.8,616.7 537.5,615.8 576.2,615.2 614.9,616.5 653.6,617.0 692.3,619.3 730.9,623.1 769.6,621.7 808.3,620.5 847.0,620.5" fill="none" stroke="#007C83" stroke-width="4"/>
+<polyline points="112.0,492.9 150.7,495.3 189.4,498.1 228.1,499.7 266.7,510.1 305.4,509.0 344.1,509.3 382.8,510.3 421.5,521.4 460.2,516.0 498.8,509.5 537.5,505.2 576.2,498.5 614.9,499.7 653.6,500.5 692.3,501.2 730.9,506.9 769.6,505.0 808.3,504.1 847.0,502.2" fill="none" stroke="#A86F00" stroke-width="4"/>
+<text x="112.0" y="700.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#526473">2020 Q1</text>
+<text x="788.0" y="700.0" font-family="Segoe UI, Arial, sans-serif" font-size="12" font-weight="400" fill="#526473">2024 Q4</text>
+<text x="620.0" y="410.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#007C83">ROA</text>
+<text x="690.0" y="410.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#A86F00">NIM</text>
+<rect x="916" y="370" width="460" height="360" rx="8" fill="#FFFFFF" stroke="#D9E1E5"/>
+<text x="940.0" y="410.0" font-family="Segoe UI, Arial, sans-serif" font-size="18" font-weight="700" fill="#12263A">Credit-quality peer comparison</text>
+<text x="940.0" y="436.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="400" fill="#526473">Median noncurrent loans (%), 2024 Q4</text>
+<text x="940.0" y="496.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#12263A">Under $1B</text>
+<rect x="1060" y="480" width="71.3" height="22" rx="3" fill="#C94B50"/>
+<text x="1300.0" y="496.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#12263A">0.282%</text>
+<text x="940.0" y="552.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#12263A">$1B–$10B</text>
+<rect x="1060" y="536" width="105.7" height="22" rx="3" fill="#C94B50"/>
+<text x="1300.0" y="552.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#12263A">0.417%</text>
+<text x="940.0" y="608.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#12263A">$10B–$250B</text>
+<rect x="1060" y="592" width="166.6" height="22" rx="3" fill="#C94B50"/>
+<text x="1300.0" y="608.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#12263A">0.658%</text>
+<text x="940.0" y="664.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="600" fill="#12263A">$250B+</text>
+<rect x="1060" y="648" width="230.0" height="22" rx="3" fill="#C94B50"/>
+<text x="1300.0" y="664.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#12263A">0.908%</text>
+<rect x="64" y="760" width="1312" height="92" rx="8" fill="#F3F6F7"/>
+<text x="88.0" y="795.0" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#12263A">Recommended management action</text>
+<text x="88.0" y="823.0" font-family="Segoe UI, Arial, sans-serif" font-size="15" font-weight="400" fill="#12263A">Monitor funding intensity and credit quality together; investigate persistent peer outliers before changing limits or strategy.</text>
+<text x="88.0" y="846.0" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="400" fill="#526473">Caveat: descriptive regulatory data do not predict failure or establish causation.</text>
+</svg>
