@@ -1,4 +1,4 @@
-## 1. Title
+## Title
 
 # Bank Performance and Risk Early-Warning Scorecard
 
@@ -6,7 +6,7 @@
 
 **Oracle SQL | PL/SQL | Power BI | FDIC Banking Data**
 
-## 2. Executive Summary
+## Executive Summary
 
 This project analyzes **96,902 FDIC institution-quarter records** from 2020 Q1 through 2024 Q4. It helps finance and risk teams monitor profitability, funding, capital, and credit quality while comparing banks with similar-sized peers.
 
@@ -19,7 +19,7 @@ Key findings:
 - Median noncurrent loans increased **32.2% year over year**.
 - The number of reporting institutions declined **12.0%** from 2020 Q1.
 
-## 3. Business Problem
+## Business Problem
 
 Profit growth alone does not show whether a bank is becoming stronger or taking more risk. Executives need to evaluate earnings alongside funding pressure, capital, credit quality, and peer performance.
 
@@ -32,7 +32,7 @@ This project answers four questions:
 
 The scorecard supports investigation; it does not predict bank failure or replace regulatory analysis.
 
-## 4. Methodology
+## Methodology
 
 1. **Extract:** PL/SQL uses `UTL_HTTP` to retrieve 29 fields from the [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs).
 2. **Validate:** Oracle checks row counts, required fields, numeric values, reporting dates, duplicate institution-quarter keys, and duplicate source fingerprints.
@@ -53,7 +53,7 @@ The scorecard supports investigation; it does not predict bank failure or replac
 
 The Oracle schema, three views, and both PL/SQL packages compile successfully on **Oracle Database 21c XE** with zero compiler errors and zero invalid objects.
 
-## 5. Skills
+## Skills
 
 - **Oracle SQL:** data modeling, constraints, CTEs, joins, validation, `LAG`, `PERCENT_RANK`, `PERCENTILE_CONT`, KPI calculation, and reconciliation
 - **PL/SQL:** packages, `UTL_HTTP`, JSON parsing, API pagination, HTTPS wallet integration, exception handling, savepoints, and atomic promotion
@@ -61,7 +61,7 @@ The Oracle schema, three views, and both PL/SQL packages compile successfully on
 - **Banking analytics:** ROA, ROE, NIM, loans-to-deposits, capital, credit quality, asset-size peers, and trend analysis
 - **Data quality:** source fingerprinting, null handling, duplicate controls, batch validation, and audit-ready outputs
 
-## 6. Results & Business Recommendation
+## Results & Business Recommendation
 
 ### Results
 
@@ -78,7 +78,7 @@ The Oracle schema, three views, and both PL/SQL packages compile successfully on
 3. Report institutions above $250B separately because their balance sheets differ from community and regional banks.
 4. Track flagged institutions, completed analyst reviews, explanations, and whether risk signals persist.
 
-## 7. Next Steps
+## Next Steps
 
 1. Run the wallet-dependent FDIC refresh in the target Oracle environment.
 2. Execute [`sql/05_reconciliation.sql`](sql/05_reconciliation.sql) against the loaded data.
