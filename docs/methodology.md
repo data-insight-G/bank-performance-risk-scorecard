@@ -1,32 +1,27 @@
-# Methodology and interpretation controls
+# Methodology
 
 ## Analytical grain
 
-One row represents one FDIC certificate at one quarter end. The project keeps an unbalanced panel: institutions are not removed merely because they lack all 20 quarters.
+One row represents one FDIC certificate at one quarter end. Institutions remain in the analysis even when they do not report all 20 quarters.
 
-## Validation contract
+## Validation
 
-The PL/SQL ingestion package first requires the approved API row count and a new metadata fingerprint. Oracle SQL then validates the 20 expected quarter ends, unique `CERT`/`REPDTE` keys, required fields, and numeric measures before batch promotion. Missing `NETINC` and `ROE` values are permitted because they occur in the official extract; affected calculations exclude those rows and disclose coverage.
+The ingestion package requires the approved API row count and a new source fingerprint. Oracle then validates reporting dates, `CERT`/`REPDTE` uniqueness, required fields, and numeric measures before promotion. Missing `NETINC` and `ROE` values remain null and are excluded from affected calculations.
 
-## Peer design
+## Peer groups
 
-Asset size is used as the first peer dimension because scale materially changes bank balance sheets. The four bands are transparent and stored as reference data rather than hidden report logic. They are analytical categories, not regulatory peer groups. A later version should test specialization and community-bank status.
+Institutions are grouped by assets: under $1B, $1B–$10B, $10B–$250B, and $250B+. These analytical groups are not regulatory classifications.
 
-## Screening logic
+## Review flag
 
-The Oracle outlier query identifies institutions below the 10th percentile for ROA and above the 90th percentile for noncurrent loans within the same quarter and size band. This combination prioritizes review; it is not a prediction, rating, or allegation. Persistence across two quarters is recommended before operational escalation.
+The outlier query identifies institutions below the 10th ROA percentile and above the 90th noncurrent-loan percentile within the same quarter and asset group. A flag prioritizes analyst review; it is not a failure prediction.
 
-## Dashboard design contract
+## Reporting controls
 
-- Analytical job: quarterly monitoring, peer comparison, and diagnostic drill-through.
-- Artifact family: asynchronous executive dashboard with four coordinated pages.
-- First scan: latest quarter, coverage, profitability, funding, and credit-quality state.
-- On-demand detail: peer distribution, institution history, geography, and specialization.
-- Static fallback: accessible SVG/PNG generated from committed verified summaries.
-- Refresh behavior: full quarterly snapshot replacement with the last-known verified view retained if refresh fails.
-- Failure states: stale, incomplete, validation-rejected, and unavailable must be visually distinct.
-- Accessibility: direct labels, redundant alert icons/text, keyboard order, alt text, and no hover-only evidence.
+- Show the source quarter and extraction timestamp.
+- Retain the last validated view when a refresh fails.
+- Distinguish stale, incomplete, rejected, and unavailable states.
+- Use labels and icons so color is not the only signal.
+- Reconcile dashboard values to the committed summaries.
 
-## Reproducibility
-
-The source manifest freezes API parameters, timestamp, row count, index version, a reference CSV hash, and the Oracle API metadata fingerprint. `FDIC_API_INGESTION_PKG` contains the complete paginated extraction and staging logic. The raw extract is not committed; two small expected outputs are committed so README findings and Oracle reconciliation targets can be reviewed without downloading 25 MB.
+The source manifest records the API parameters, extraction time, row count, index, reference hash, and Oracle metadata fingerprint.

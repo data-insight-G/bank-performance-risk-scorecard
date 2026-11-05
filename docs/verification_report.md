@@ -1,15 +1,13 @@
-# Verification report
+# Verification
 
-| Component | Status | Verification evidence |
-|---|---|---|
-| Dataset | Pass | Live FDIC API extraction; 96,902 rows; 20 quarter ends; SHA-256 in `data/source_manifest.json` |
-| Reference outputs | Pass | Committed 20-quarter and four-peer CSVs reconcile to the README values and Oracle reconciliation targets |
-| Oracle SQL | Pass (compile) | Seven tables, four asset bands, 20 reporting quarters, one validation view, and two analytical views created successfully on Oracle Database 21c XE with zero invalid objects |
-| Oracle PL/SQL | Pass (compile) | Both package specifications and bodies compiled successfully on Oracle Database 21c XE with zero compiler errors; the live HTTPS refresh was not run because it requires an environment-specific wallet and network ACL |
-| Power BI | Not tested | Model, DAX, page design, and reconciliation plan supplied; Power BI Desktop unavailable |
-| README | Pass | Seven required sections in the required order; headline numeric claims reconcile to committed CSVs |
-| GitHub repository | Pass | Public repository at `https://github.com/data-insight-G/bank-performance-risk-scorecard`; local and remote `main` were synchronized after publication |
-| GitHub profile | Not changed | Existing private repositories preserved; no profile README existed |
-| Public links | Pass | Repository, raw README, dashboard image, and FDIC documentation opened without an authenticated GitHub session |
+| Component | Result |
+|---|---|
+| Dataset | 96,902 FDIC records across 20 quarter ends; source metadata and hashes recorded |
+| Reference outputs | 20 quarterly rows and four 2024 Q4 peer groups reconcile to README results |
+| Oracle SQL | Seven tables, three views, four asset bands, and 20 quarters created on Oracle 21c XE |
+| PL/SQL | Both package specifications and bodies compiled with zero errors and zero invalid objects |
+| Power BI | Model, 19 DAX measures, page design, and reconciliation plan reviewed statically |
+| README | Seven required sections; headline figures reconcile to committed outputs |
+| GitHub | Public repository and linked files verified after publication |
 
-Runtime status is explicit: Oracle compilation was tested, while the wallet-dependent API call and native Power BI report were not executed.
+The live API refresh requires an Oracle wallet and network ACL. Native Power BI rendering remains pending because Power BI Desktop was unavailable.

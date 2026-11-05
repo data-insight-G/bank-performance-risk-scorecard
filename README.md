@@ -2,96 +2,88 @@
 
 # Bank Performance and Risk Early-Warning Scorecard
 
-![Verified dashboard preview](visuals/dashboard-overview.png)
+![Dashboard preview](visuals/dashboard-overview.png)
 
-An Oracle SQL, PL/SQL, and Power BI portfolio case study using official FDIC institution-level quarterly financial data.
+**Oracle SQL | PL/SQL | Power BI | FDIC Banking Data**
 
 ## 2. Executive Summary
 
-Bank finance and risk teams need to see whether stronger earnings are being achieved alongside sustainable funding and acceptable credit quality. This project uses 96,902 official FDIC institution-quarter records from 2020 Q1 through 2024 Q4 to create a validated performance and peer-benchmarking scorecard. PL/SQL retrieves the official API data directly into Oracle, Oracle SQL validates and analyzes it, and Power BI turns the results into executive, peer, risk, and institution-level views.
+This project analyzes **96,902 FDIC institution-quarter records** from 2020 Q1 through 2024 Q4. It helps finance and risk teams monitor profitability, funding, capital, and credit quality while comparing banks with similar-sized peers.
 
-The analysis found that median ROA improved from 0.882% in 2024 Q1 to 0.936% in Q4, while median loans-to-deposits reached 78.605% and median noncurrent loans rose 32.2% relative to 2023 Q4. I recommend peer-relative monitoring, combined funding-and-credit reviews, and separate treatment for the 14 institutions above $250 billion. Next steps are to run the wallet-dependent Oracle refresh in the target environment, build and reconcile the native Power BI report, and add institution-history data to explain changes in the reporting population.
+PL/SQL retrieves paginated FDIC API data directly into Oracle. Oracle SQL validates and models the data, calculates banking KPIs and peer percentiles, and supplies a Power BI reporting model.
+
+Key findings:
+
+- Median ROA increased from **0.882% to 0.936%** during 2024.
+- Median loans-to-deposits reached **78.605%** in 2024 Q4.
+- Median noncurrent loans increased **32.2% year over year**.
+- The number of reporting institutions declined **12.0%** from 2020 Q1.
 
 ## 3. Business Problem
 
-Bank executives cannot evaluate performance from one earnings number. Profitability can improve while funding pressure, credit deterioration, or portfolio concentration rises. Comparisons can also mislead when a community bank is measured against a globally active institution.
+Profit growth alone does not show whether a bank is becoming stronger or taking more risk. Executives need to evaluate earnings alongside funding pressure, capital, credit quality, and peer performance.
 
-The intended stakeholders are finance leadership, asset-liability committees, risk management, strategy teams, and regional executives. The central business question is:
+This project answers four questions:
 
-> How can stakeholders identify meaningful changes in bank performance and risk, compare each institution with relevant peers, and decide which movements require investigation?
+1. How have industry performance and risk indicators changed over time?
+2. How do results differ by asset-size peer group?
+3. Which institutions combine weak profitability with high noncurrent loans?
+4. Which year-over-year changes require further review?
 
-The project answers four supporting questions:
-
-1. How did industry profitability, margin, funding, lending, capital, and asset-quality indicators change from 2020 Q1 to 2024 Q4?
-2. How do those indicators differ across documented asset-size peer groups?
-3. Which institutions combine low peer-relative profitability with high peer-relative noncurrent loans and therefore warrant analyst review?
-4. Which year-over-year changes are large enough to investigate through institution-level drill-through?
-
-The scorecard is a descriptive screening tool. It does not predict bank failure, assign regulatory ratings, or establish why a metric changed.
+The scorecard supports investigation; it does not predict bank failure or replace regulatory analysis.
 
 ## 4. Methodology
 
-1. **Extract the data with PL/SQL.** `FDIC_API_INGESTION_PKG` uses `UTL_HTTP` to download every page from the public [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs), parses the JSON inside Oracle, and stages 29 documented fields.
-2. **Validate the source.** PL/SQL rejects API count changes and duplicate snapshots; Oracle SQL then validates required fields, numeric values, quarter dates, duplicate institution-quarter keys, and batch totals before promotion.
-3. **Build the Oracle model.** Separate raw staging data from typed institution, reporting-quarter, peer-band, and financial fact tables.
-4. **Control data quality with PL/SQL.** Reject incomplete or invalid batches, log validation issues, and promote data only after every required check succeeds.
-5. **Calculate business KPIs.** Derive quarterly net income, profitability, margin, funding, capital, and credit-quality measures; then calculate peer medians and percentiles.
-6. **Design Power BI reporting.** Specify executive overview, peer benchmarking, risk diagnostics, and institution detail pages with documented DAX and reconciliation controls.
-7. **Verify the result.** Run the Oracle reconciliation queries, compare Power BI measures with the expected CSV outputs, inspect data-quality issues, and test the public GitHub links.
+1. **Extract:** PL/SQL uses `UTL_HTTP` to retrieve 29 fields from the [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs).
+2. **Validate:** Oracle checks row counts, required fields, numeric values, reporting dates, duplicate institution-quarter keys, and duplicate source fingerprints.
+3. **Model:** A controlled staging-to-fact process creates institution, reporting-quarter, asset-band, and financial fact tables.
+4. **Analyze:** SQL calculates quarterly net income, trends, peer medians, percentiles, and review flags.
+5. **Report:** Nineteen DAX measures support executive, peer, risk, and institution-level Power BI pages.
+6. **Reconcile:** SQL and Power BI outputs are compared with committed quarterly and peer summary files.
 
-### Project outline
+### Project structure
 
-| Area | Main deliverables |
+| Folder | Purpose |
 |---|---|
-| Data acquisition | Oracle `UTL_HTTP`, paginated API ingestion, `JSON_TABLE`, and source fingerprint |
-| Oracle SQL | Schema, validation view, analytical views, business queries, and reconciliations |
-| Oracle PL/SQL | Batch validation and promotion package |
-| Analytics | Verified quarterly and peer-group CSV outputs |
-| Power BI | Semantic model, DAX measures, page design, mobile layout, and QA checklist |
-| Presentation | Dashboard preview, seven-section README, data dictionary, methodology, and verification reports |
+| [`sql/`](sql/) | Schema, validation, analytical views, business questions, and reconciliation |
+| [`plsql/`](plsql/) | FDIC API ingestion and controlled batch promotion |
+| [`powerbi/`](powerbi/) | Semantic model, DAX measures, page design, and QA checklist |
+| [`data/`](data/) | Source manifest and verified summary outputs |
+| [`docs/`](docs/) | Data dictionary, methodology, Oracle setup, and verification |
+
+The Oracle schema, three views, and both PL/SQL packages compile successfully on **Oracle Database 21c XE** with zero compiler errors and zero invalid objects.
 
 ## 5. Skills
 
-**Oracle SQL:** External-table loading, typed staging, constraints, joins, CTEs, `CASE`, aggregate functions, `LAG`, `PERCENT_RANK`, `PERCENTILE_CONT`, peer segmentation, data-quality validation, and KPI reconciliation.
-
-**Oracle PL/SQL:** `UTL_HTTP`, HTTPS wallet integration, paginated API ingestion, JSON parsing, package specification/body, controlled batch state, explicit errors, savepoints, validation logging, and atomic promotion.
-
-**Power BI:** Star-schema design, DAX time intelligence, KPI measures, peer benchmarking, drill-through, mobile layout, accessibility, and SQL-to-dashboard reconciliation.
-
-**Business Analytics:** Bank profitability, net interest margin, funding intensity, credit quality, capital, regulatory data interpretation, peer comparison, trend analysis, and executive recommendations.
-
-**Data Engineering & QA:** Oracle-native API pagination, metadata fingerprinting, null handling, duplicate-key controls, batch validation, reconciliation queries, and transparent verification status.
+- **Oracle SQL:** data modeling, constraints, CTEs, joins, validation, `LAG`, `PERCENT_RANK`, `PERCENTILE_CONT`, KPI calculation, and reconciliation
+- **PL/SQL:** packages, `UTL_HTTP`, JSON parsing, API pagination, HTTPS wallet integration, exception handling, savepoints, and atomic promotion
+- **Power BI:** star schema, DAX, KPI design, peer benchmarking, drill-through, mobile layout, and accessibility
+- **Banking analytics:** ROA, ROE, NIM, loans-to-deposits, capital, credit quality, asset-size peers, and trend analysis
+- **Data quality:** source fingerprinting, null handling, duplicate controls, batch validation, and audit-ready outputs
 
 ## 6. Results & Business Recommendation
 
-### Verified findings
+### Results
 
-- **Industry consolidation with balance-sheet growth:** reporting institutions declined from 5,182 in 2020 Q1 to 4,560 in 2024 Q4, a 12.0% reduction. Over the same endpoints, total assets rose from $20.44 trillion to $24.36 trillion and deposits rose from $15.88 trillion to $19.35 trillion. These are descriptive changes; the dataset does not by itself assign the decline to mergers, failures, or reporting changes.
-- **Profitability recovered during 2024:** median ROA rose from 0.882% in Q1 to 0.936% in Q4, while median NIM increased from 3.329% to 3.428%. Median ROA nevertheless remained below its 2021 quarterly peak in this dataset.
-- **Funding intensity remained elevated:** median loans-to-deposits was 78.605% in 2024 Q4, 0.945 percentage points above 2024 Q1. This does not prove a liquidity problem, but it supports joint monitoring of lending growth and funding structure.
-- **Credit quality weakened from a low base:** median noncurrent loans increased from 0.253% in 2023 Q4 to 0.335% in 2024 Q4, a 0.082 percentage-point or 32.2% relative increase.
-- **Peer context materially changes interpretation:** in 2024 Q4, median noncurrent loans ranged from 0.282% for institutions under $1 billion to 0.908% for the 14 institutions above $250 billion. The largest-bank group also had a lower median NIM (2.834%) and lower median loans-to-deposits (56.679%) than the under-$1-billion group. The $250-billion-plus result must be read cautiously because the peer contains only 14 institutions.
-- **Quarterly net-income coverage is explicit:** the derived 2024 Q4 net-income total covers 99.52% of reporting institutions; rows with missing source `NETINC` are not treated as zero.
+- Reporting institutions declined from **5,182 to 4,560**, while total assets increased from **$20.44T to $24.36T**.
+- Median ROA improved from **0.882% in 2024 Q1 to 0.936% in Q4**; median NIM increased from **3.329% to 3.428%**.
+- Median loans-to-deposits rose to **78.605%**, indicating a need to monitor lending growth with funding conditions.
+- Median noncurrent loans increased from **0.253% to 0.335% year over year**.
+- In 2024 Q4, median noncurrent loans ranged from **0.282%** for banks under $1B to **0.908%** for banks above $250B.
 
 ### Recommendations
 
-1. **Use peer-relative screening, not universal thresholds.** Review institutions that remain below the 10th ROA percentile and above the 90th noncurrent-loan percentile within the same asset-size band for two consecutive quarters. This is a proposed investigation rule, not an FDIC standard or distress classification.
-2. **Review funding and credit quality together.** Escalate a diagnostic review when rising loans-to-deposits coincides with worsening noncurrent loans, then inspect deposit mix, loan concentration, allowance coverage, and institution context before changing strategy.
-3. **Keep large-bank findings separate.** The 14 institutions above $250 billion have structurally different balance sheets; management reporting should not blend them with community and regional banks.
-4. **Measure success through review quality.** Track the number of persistent peer outliers, the share receiving documented analyst review, false-positive explanations, and whether flagged movements normalize or persist in later quarters.
-
-### Important limitations
-
-- FDIC data are regulatory financial records, not customer-level behavior or credit files.
-- Accounting definitions, mergers, charter changes, and reporting populations can change over time.
-- Peer percentile flags are descriptive and do not predict failure or establish causation.
-- Monetary API fields are reported in thousands of dollars; the processed summaries convert totals to millions.
-- The schema, reference data, validation view, analytical views, and both PL/SQL packages compile successfully on Oracle Database 21c XE with zero invalid objects. The live HTTPS refresh still requires an environment-specific wallet and network ACL. Native Power BI rendering remains untested; the static dashboard is a generated preview, not a `.pbix` screenshot.
+1. Review banks that remain below the 10th ROA percentile and above the 90th noncurrent-loan percentile within their peer group for two consecutive quarters.
+2. Evaluate rising loans-to-deposits together with credit deterioration, deposit mix, loan concentration, and allowance coverage.
+3. Report institutions above $250B separately because their balance sheets differ from community and regional banks.
+4. Track flagged institutions, completed analyst reviews, explanations, and whether risk signals persist.
 
 ## 7. Next Steps
 
-1. Configure the Oracle network ACL and HTTPS wallet for `api.fdic.gov`, then compile and run the API-ingestion and batch-control packages on Oracle Database 19c or newer.
-2. Run `sql/05_reconciliation.sql` and attach the Oracle compilation, ingestion, validation, and reconciliation logs.
-3. Build the native Power BI report from the supplied model and DAX, reconcile every card to the expected CSV outputs, and test desktop/mobile interactions.
-4. Add FDIC institution-history events so the decline in reporter count can be separated into mergers, closures, new reporters, and other structural changes.
-5. Test alternative peer definitions using specialization group and community-bank designation, then document whether screening results are stable.
+1. Run the wallet-dependent FDIC refresh in the target Oracle environment.
+2. Execute [`sql/05_reconciliation.sql`](sql/05_reconciliation.sql) against the loaded data.
+3. Build and validate the native Power BI report from the supplied model and DAX.
+4. Add institution-history events to explain mergers, closures, and reporting-population changes.
+5. Test peer groups based on specialization and community-bank status.
+
+> The repository includes a verified dashboard preview and Power BI specification, not a `.pbix` file.
