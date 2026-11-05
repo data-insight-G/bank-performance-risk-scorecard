@@ -8,13 +8,19 @@ An Oracle SQL, PL/SQL, and Power BI portfolio case study using official FDIC ins
 
 ## 2. Executive Summary
 
-This project converts 96,902 FDIC institution-quarter records from 2020 Q1 through 2024 Q4 into a validated performance and peer-benchmarking solution. The analysis tracks profitability, margin, funding, capitalization, lending, and credit quality across 20 quarters and four asset-size peer groups. In 2024, median ROA recovered from 0.882% in Q1 to 0.936% in Q4 and median NIM rose from 3.329% to 3.428%. At the same time, median loans-to-deposits reached 78.605% and median noncurrent loans rose to 0.335%, supporting continued funding and credit-quality monitoring. Oracle scripts define controlled staging, validation, dimensional storage, analytical views, and peer percentiles. PL/SQL prevents invalid batches from promotion. Power BI specifications and DAX support four stakeholder pages. The native Oracle and Power BI runtimes were unavailable locally, so their execution status is reported transparently.
+Bank finance and risk teams need to see whether stronger earnings are being achieved alongside sustainable funding and acceptable credit quality. This project uses 96,902 official FDIC institution-quarter records from 2020 Q1 through 2024 Q4 to create a validated performance and peer-benchmarking scorecard. Oracle SQL prepares and analyzes the data, PL/SQL controls batch quality, and the Power BI design turns the results into executive, peer, risk, and institution-level views.
+
+The analysis found that median ROA improved from 0.882% in 2024 Q1 to 0.936% in Q4, while median loans-to-deposits reached 78.605% and median noncurrent loans rose 32.2% relative to 2023 Q4. I recommend peer-relative monitoring, combined funding-and-credit reviews, and separate treatment for the 14 institutions above $250 billion. Next steps are to compile the Oracle solution, build and reconcile the native Power BI report, and add institution-history data to explain changes in the reporting population.
 
 ## 3. Business Problem
 
-Bank executives cannot evaluate performance from one earnings number. Profitability can improve while funding pressure, credit deterioration, or portfolio concentration rises. Comparisons are also misleading when a community bank is measured against a globally active institution.
+Bank executives cannot evaluate performance from one earnings number. Profitability can improve while funding pressure, credit deterioration, or portfolio concentration rises. Comparisons can also mislead when a community bank is measured against a globally active institution.
 
-The intended stakeholders are finance leadership, asset-liability committees, risk management, strategy teams, and regional executives. This case study addresses four questions:
+The intended stakeholders are finance leadership, asset-liability committees, risk management, strategy teams, and regional executives. The central business question is:
+
+> How can stakeholders identify meaningful changes in bank performance and risk, compare each institution with relevant peers, and decide which movements require investigation?
+
+The project answers four supporting questions:
 
 1. How did industry profitability, margin, funding, lending, capital, and asset-quality indicators change from 2020 Q1 to 2024 Q4?
 2. How do those indicators differ across documented asset-size peer groups?
@@ -25,18 +31,28 @@ The scorecard is a descriptive screening tool. It does not predict bank failure,
 
 ## 4. Methodology
 
-1. **Acquire a fixed official dataset.** `scripts/fetch_fdic_financials.py` calls the public [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs), requests 29 documented fields, and writes a source manifest containing the API index, extraction timestamp, row count, and SHA-256 hash.
-2. **Validate before analysis.** `scripts/build_verified_outputs.py` rejects duplicate institution-quarter keys, invalid required numerics, and dates outside the 20-quarter scope. Documented null `NETINC` and `ROE` values remain null and are excluded only from affected measures.
-3. **Stage safely in Oracle.** `sql/00_schema.sql` separates raw source text from typed dimensions and facts. `sql/02_data_quality.sql` centralizes validation rules rather than scattering them across reports.
-4. **Control promotion with PL/SQL.** `plsql/fdic_load_control_pkg.sql` compares expected and actual counts, records row-level issues, and promotes a batch only after validation succeeds.
-5. **Calculate banking KPIs consistently.** `sql/03_analytical_views.sql` converts year-to-date net income into quarterly values, assigns asset-size peers, and calculates peer percentiles and medians with Oracle analytical functions.
-6. **Answer stakeholder questions.** `sql/04_analysis.sql` contains traceable queries for trends, peer differences, screening outliers, and year-over-year ROA movement.
-7. **Design the BI layer.** `powerbi/model.md` defines a star schema, four report pages, interaction behavior, mobile layout, accessibility treatment, and reconciliation controls. `powerbi/dax_measures.dax` contains the report measures.
-8. **Reconcile outputs.** The committed processed CSVs, data-quality report, unit tests, and `sql/05_reconciliation.sql` provide independent checkpoints. Raw data are reproducible but excluded from Git because the extract is 25 MB.
+1. **Extract the data.** Download 29 documented fields from the public [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs) for the fixed 2020 Q1–2024 Q4 period.
+2. **Validate the source.** Check the file hash, row count, reporting dates, required numeric values, nulls, and unique institution-quarter keys before analysis.
+3. **Build the Oracle model.** Separate raw staging data from typed institution, reporting-quarter, peer-band, and financial fact tables.
+4. **Control data quality with PL/SQL.** Reject incomplete or invalid batches, log validation issues, and promote data only after every required check succeeds.
+5. **Calculate business KPIs.** Derive quarterly net income, profitability, margin, funding, capital, and credit-quality measures; then calculate peer medians and percentiles.
+6. **Design Power BI reporting.** Specify executive overview, peer benchmarking, risk diagnostics, and institution detail pages with documented DAX and reconciliation controls.
+7. **Verify the result.** Re-extract the FDIC source, rebuild the outputs, run unit tests, reconcile README numbers, and test the public GitHub links.
+
+### Project outline
+
+| Area | Main deliverables |
+|---|---|
+| Data acquisition | Reproducible API extraction and immutable source manifest |
+| Oracle SQL | Schema, validation view, analytical views, business queries, and reconciliations |
+| Oracle PL/SQL | Batch validation and promotion package |
+| Analytics | Verified quarterly and peer-group CSV outputs |
+| Power BI | Semantic model, DAX measures, page design, mobile layout, and QA checklist |
+| Presentation | Dashboard preview, seven-section README, data dictionary, methodology, and verification reports |
 
 ## 5. Skills
 
-**Oracle SQL:** External-table loading, typed staging, constraints, joins, CTEs, `LAG`, `PERCENT_RANK`, `PERCENTILE_CONT`, conditional aggregation, peer segmentation, data-quality validation, and KPI reconciliation.
+**Oracle SQL:** External-table loading, typed staging, constraints, joins, CTEs, `CASE`, aggregate functions, `LAG`, `PERCENT_RANK`, `PERCENTILE_CONT`, peer segmentation, data-quality validation, and KPI reconciliation.
 
 **Oracle PL/SQL:** Package specification/body, controlled batch state, procedures, explicit application errors, exception handling, savepoints, validation logging, and atomic promotion design.
 

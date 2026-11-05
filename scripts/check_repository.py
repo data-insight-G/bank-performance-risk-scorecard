@@ -30,6 +30,17 @@ def check_readme(repository_root: Path) -> None:
         raise RepositoryCheckError(
             f"README sections are not in the required order: {observed_sections}"
         )
+    required_claims = (
+        "96,902",
+        "0.882%",
+        "0.936%",
+        "78.605%",
+        "32.2%",
+        "14 institutions above $250 billion",
+    )
+    missing_claims = [claim for claim in required_claims if claim not in readme_text]
+    if missing_claims:
+        raise RepositoryCheckError(f"README is missing verified claims: {missing_claims}")
 
 
 def check_manifest(repository_root: Path) -> None:
@@ -54,12 +65,27 @@ def check_processed_outputs(repository_root: Path) -> None:
         raise RepositoryCheckError("Industry summary must end at 2024 Q4")
     if industry_rows[-1]["institution_count"] != "4560":
         raise RepositoryCheckError("Latest institution count does not match verified output")
+    rows_by_date = {row["report_date"]: row for row in industry_rows}
+    if rows_by_date["20240331"]["median_roa_pct"] != "0.8821":
+        raise RepositoryCheckError("2024 Q1 median ROA does not match the README baseline")
+    if rows_by_date["20241231"]["median_roa_pct"] != "0.9361":
+        raise RepositoryCheckError("2024 Q4 median ROA does not match the README result")
+    if rows_by_date["20241231"]["median_loans_to_deposits_pct"] != "78.6050":
+        raise RepositoryCheckError("2024 Q4 loans-to-deposits does not match the README result")
+    prior_noncurrent = float(rows_by_date["20231231"]["median_noncurrent_loans_pct"])
+    latest_noncurrent = float(rows_by_date["20241231"]["median_noncurrent_loans_pct"])
+    relative_noncurrent_change = round((latest_noncurrent / prior_noncurrent - 1) * 100, 1)
+    if relative_noncurrent_change != 32.2:
+        raise RepositoryCheckError("Noncurrent-loan relative change does not match the README result")
 
     peer_path = repository_root / "data" / "processed" / "latest_peer_summary.csv"
     with peer_path.open("r", encoding="utf-8", newline="") as source_file:
         peer_rows = list(csv.DictReader(source_file))
     if len(peer_rows) != 4:
         raise RepositoryCheckError("Peer summary must contain exactly four asset-size bands")
+    largest_peer = next(row for row in peer_rows if row["asset_size_band"] == "$250B+")
+    if largest_peer["institution_count"] != "14":
+        raise RepositoryCheckError("Largest-bank peer count does not match the README result")
 
 
 def run_unit_tests(repository_root: Path) -> None:

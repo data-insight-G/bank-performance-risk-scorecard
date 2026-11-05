@@ -7,7 +7,7 @@
 | Oracle SQL | Not tested | Scripts reviewed statically; no Oracle runtime or Docker was available |
 | Oracle PL/SQL | Not tested | Package reviewed statically; compilation and execution require Oracle |
 | Power BI | Not tested | Model, DAX, page design, and reconciliation plan supplied; Power BI Desktop unavailable |
-| README | Pass | Seven required sections in the required order; numeric claims reconcile to committed CSVs |
+| README | Pass | Seven required sections in the required order; automated checks reconcile headline numeric claims to committed CSVs |
 | GitHub repository | Pass | Public repository created at `https://github.com/data-insight-G/bank-performance-risk-scorecard`; main branch contains two logical commits |
 | GitHub profile | Not changed | Existing private repositories preserved; no profile README existed |
 | Public links | Pass | Repository, raw README, dashboard image, and FDIC documentation opened without an authenticated GitHub session |
