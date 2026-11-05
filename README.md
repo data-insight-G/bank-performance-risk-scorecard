@@ -75,13 +75,3 @@ The Oracle schema, three views, and both PL/SQL packages compile successfully on
 2. Evaluate rising loans-to-deposits together with credit deterioration, deposit mix, loan concentration, and allowance coverage.
 3. Report institutions above $250B separately because their balance sheets differ from community and regional banks.
 4. Track flagged institutions, completed analyst reviews, explanations, and whether risk signals persist.
-
-## Next Steps
-
-1. Run the wallet-dependent FDIC refresh in the target Oracle environment.
-2. Execute [`sql/05_reconciliation.sql`](sql/05_reconciliation.sql) against the loaded data.
-3. Build and validate the native Power BI report from the supplied model and DAX.
-4. Add institution-history events to explain mergers, closures, and reporting-population changes.
-5. Test peer groups based on specialization and community-bank status.
-
-> The repository includes a verified dashboard preview and Power BI specification, not a `.pbix` file.
