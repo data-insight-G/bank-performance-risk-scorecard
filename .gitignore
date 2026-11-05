@@ -1,0 +1,5 @@
+data/raw/
+work/
+__pycache__/
+*.pyc
+.DS_Store

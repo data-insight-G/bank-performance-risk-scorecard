@@ -1,0 +1,5 @@
+asset_size_band,institution_count,total_assets_usd_millions,median_roa_pct,median_roe_pct,median_nim_pct,median_equity_to_assets_pct,median_loans_to_deposits_pct,median_noncurrent_loans_pct,median_net_charge_offs_pct
+Under $1B,3526,1128300.9,0.9351,9.6400,3.4992,9.7114,76.0902,0.2817,0.0117
+$1B–$10B,870,2494445.6,0.9237,9.9000,3.2347,9.6881,86.8751,0.4175,0.0387
+$10B–$250B,150,6901217.8,0.9798,9.3850,3.1565,10.9010,82.7140,0.6579,0.1673
+$250B+,14,13838024.7,1.0366,10.3700,2.8337,9.6779,56.6794,0.9082,0.5522
