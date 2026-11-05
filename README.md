@@ -4,11 +4,11 @@
 
 ![Verified dashboard preview](visuals/dashboard-overview.png)
 
-An Oracle SQL, PL/SQL, and Power BI portfolio case study using official FDIC institution-level quarterly financial data.
+An Oracle SQL, PL/SQL, Power BI, and Excel Power Query portfolio case study using official FDIC institution-level quarterly financial data.
 
 ## 2. Executive Summary
 
-Bank finance and risk teams need to see whether stronger earnings are being achieved alongside sustainable funding and acceptable credit quality. This project uses 96,902 official FDIC institution-quarter records from 2020 Q1 through 2024 Q4 to create a validated performance and peer-benchmarking scorecard. Oracle SQL prepares and analyzes the data, PL/SQL controls batch quality, and the Power BI design turns the results into executive, peer, risk, and institution-level views.
+Bank finance and risk teams need to see whether stronger earnings are being achieved alongside sustainable funding and acceptable credit quality. This project uses 96,902 official FDIC institution-quarter records from 2020 Q1 through 2024 Q4 to create a validated performance and peer-benchmarking scorecard. Excel Power Query retrieves the official API data, Oracle SQL prepares and analyzes it, PL/SQL controls batch quality, and Power BI turns the results into executive, peer, risk, and institution-level views.
 
 The analysis found that median ROA improved from 0.882% in 2024 Q1 to 0.936% in Q4, while median loans-to-deposits reached 78.605% and median noncurrent loans rose 32.2% relative to 2023 Q4. I recommend peer-relative monitoring, combined funding-and-credit reviews, and separate treatment for the 14 institutions above $250 billion. Next steps are to compile the Oracle solution, build and reconcile the native Power BI report, and add institution-history data to explain changes in the reporting population.
 
@@ -31,19 +31,19 @@ The scorecard is a descriptive screening tool. It does not predict bank failure,
 
 ## 4. Methodology
 
-1. **Extract the data.** Download 29 documented fields from the public [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs) for the fixed 2020 Q1–2024 Q4 period.
-2. **Validate the source.** Check the file hash, row count, reporting dates, required numeric values, nulls, and unique institution-quarter keys before analysis.
+1. **Extract the data with Excel.** Use the supplied Power Query to download 29 documented fields from the public [FDIC BankFind Financials API](https://api.fdic.gov/banks/docs) for the fixed 2020 Q1–2024 Q4 period.
+2. **Validate the source.** Power Query rejects row-count mismatches, duplicate institution-quarter keys, and unexpected dates; Oracle then validates required fields, numeric values, nulls, and batch totals before promotion.
 3. **Build the Oracle model.** Separate raw staging data from typed institution, reporting-quarter, peer-band, and financial fact tables.
 4. **Control data quality with PL/SQL.** Reject incomplete or invalid batches, log validation issues, and promote data only after every required check succeeds.
 5. **Calculate business KPIs.** Derive quarterly net income, profitability, margin, funding, capital, and credit-quality measures; then calculate peer medians and percentiles.
 6. **Design Power BI reporting.** Specify executive overview, peer benchmarking, risk diagnostics, and institution detail pages with documented DAX and reconciliation controls.
-7. **Verify the result.** Re-extract the FDIC source, rebuild the outputs, run unit tests, reconcile README numbers, and test the public GitHub links.
+7. **Verify the result.** Run the Oracle reconciliation queries, compare Power BI measures with the expected CSV outputs, inspect data-quality issues, and test the public GitHub links.
 
 ### Project outline
 
 | Area | Main deliverables |
 |---|---|
-| Data acquisition | Reproducible API extraction and immutable source manifest |
+| Data acquisition | Excel Power Query pagination, validation, and immutable source manifest |
 | Oracle SQL | Schema, validation view, analytical views, business queries, and reconciliations |
 | Oracle PL/SQL | Batch validation and promotion package |
 | Analytics | Verified quarterly and peer-group CSV outputs |
@@ -58,9 +58,11 @@ The scorecard is a descriptive screening tool. It does not predict bank failure,
 
 **Power BI:** Star-schema design, Power Query responsibility boundaries, DAX time intelligence, KPI measures, peer benchmarking, drill-through, mobile layout, accessibility, and SQL-to-dashboard reconciliation.
 
+**Excel:** Power Query M, paginated REST API extraction, schema selection, type validation, duplicate checks, row-count reconciliation, and UTF-8 CSV export.
+
 **Business Analytics:** Bank profitability, net interest margin, funding intensity, credit quality, capital, regulatory data interpretation, peer comparison, trend analysis, and executive recommendations.
 
-**Data Engineering & QA:** API pagination, immutable source manifest, SHA-256 verification, null handling, duplicate-key controls, reproducible extracts, unit tests, and transparent verification status.
+**Data Engineering & QA:** API pagination, immutable source manifest, SHA-256 provenance, null handling, duplicate-key controls, Oracle batch validation, reconciliation queries, and transparent verification status.
 
 ## 6. Results & Business Recommendation
 
@@ -90,8 +92,8 @@ The scorecard is a descriptive screening tool. It does not predict bank failure,
 
 ## 7. Next Steps
 
-1. Execute and compile all Oracle scripts against Oracle Database 19c or newer, then attach the reconciliation output and PL/SQL test log.
-2. Build the native Power BI report from the supplied model and DAX, reconcile every card to the committed CSVs, and test desktop/mobile interactions.
-3. Add FDIC institution-history events so the decline in reporter count can be separated into mergers, closures, new reporters, and other structural changes.
-4. Test alternative peer definitions using specialization group and community-bank designation, then document whether screening results are stable.
-5. Extend the refresh process to later quarters only after the fixed historical build remains reproducible.
+1. Refresh the supplied query in Microsoft Excel, export the validated CSV, and confirm the 96,902-row fixed snapshot.
+2. Execute and compile all Oracle scripts against Oracle Database 19c or newer, then attach the reconciliation output and PL/SQL test log.
+3. Build the native Power BI report from the supplied model and DAX, reconcile every card to the expected CSV outputs, and test desktop/mobile interactions.
+4. Add FDIC institution-history events so the decline in reporter count can be separated into mergers, closures, new reporters, and other structural changes.
+5. Test alternative peer definitions using specialization group and community-bank designation, then document whether screening results are stable.
